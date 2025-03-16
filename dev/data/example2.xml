@@ -9,7 +9,7 @@
             <state>IL</state>
             <zip>62703</zip>
         </address>
-        <oders>
+        <orders>
             <order>
                 <id>1</id>
                 <product>Apple</product>
@@ -20,6 +20,6 @@
                 <product>Orange</product>
                 <quantity>20</quantity>
             </order>
-        </oders>
+        </orders>
     </record>
 

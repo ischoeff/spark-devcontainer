@@ -1,6 +1,7 @@
 package com.example
 
 import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.functions._
 
 object XmlExample {
   def main(args: Array[String]): Unit = {
@@ -27,11 +28,14 @@ object XmlExample {
         .json("data/output/json")
 
       // Flatten the structure and write each structure to a separate file
-      val flattenedDf = df.selectExpr("explode(record) as record")
-      flattenedDf.show()
-      flattenedDf.printSchema()
+     val explodedDf = df
+        .withColumn("address", explode_outer(col("address")))
+        .withColumn("order", explode_outer(col("orders.order")))
 
-      flattenedDf.write
+      explodedDf.show()
+      explodedDf.printSchema()
+
+      explodedDf.write
         .mode("overwrite")
         .json("data/output/flattened_json")
 

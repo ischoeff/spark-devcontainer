@@ -1,5 +1,6 @@
 FROM python:3.9-slim
 
+# Install Java (required for Spark) and update package lists in the same RUN
 RUN apt-get update && \
     apt-get install -y --no-install-recommends openjdk-17-jdk-headless wget curl procps maven && \
     apt-get clean && \
@@ -17,12 +18,11 @@ RUN wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SP
     tar -xzf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     mv spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} /opt/spark && \
     rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz
-
+    
 # Install Scala
-ARG SCALA_VERSION=2.13.8
-RUN wget https://downloads.lightbend.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.deb && \
-    dpkg -i scala-${SCALA_VERSION}.deb && \
-    rm scala-${SCALA_VERSION}.deb
+RUN wget https://downloads.lightbend.com/scala/2.13.8/scala-2.13.8.deb && \
+    dpkg -i scala-2.13.8.deb && \
+    rm scala-2.13.8.deb
 
 # Set SPARK_HOME environment variable
 ENV SPARK_HOME=/opt/spark
@@ -33,4 +33,3 @@ ENV PYTHONPATH=$SPARK_HOME/python/lib
 
 # Set working directory
 WORKDIR /workspaces
-
