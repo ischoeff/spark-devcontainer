@@ -1,0 +1,48 @@
+package com.example
+
+import org.apache.spark.sql.SparkSession
+
+object XmlExample {
+  def main(args: Array[String]): Unit = {
+    val spark = SparkSession.builder
+      .appName("XmlExample")
+      .config("spark.jars.packages", "com.databricks:spark-xml_2.12:0.15.0")
+      .master("local[*]")
+      .getOrCreate()
+
+    try {
+      // Read XML files from the "data/" directory
+      val df = spark.read
+        .format("xml")
+        .option("rowTag", "record")
+        .load("data/*.xml")
+
+      df.show()
+      df.printSchema() // Inspect the schema
+
+      // Write the DataFrame to a single JSON file in "data/output/json"
+      df.coalesce(1)
+        .write
+        .mode("overwrite")
+        .json("data/output/json")
+
+      // Flatten the structure and write each structure to a separate file
+      val flattenedDf = df.selectExpr("explode(record) as record")
+      flattenedDf.show()
+      flattenedDf.printSchema()
+
+      flattenedDf.write
+        .mode("overwrite")
+        .json("data/output/flattened_json")
+
+      println("XML processing and JSON output completed successfully.")
+
+    } catch {
+      case e: Exception =>
+        println(s"An error occurred: ${e.getMessage}")
+        e.printStackTrace() // Print the stack trace for debugging
+    } finally {
+      spark.stop()
+    }
+  }
+}

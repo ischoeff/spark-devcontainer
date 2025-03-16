@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <record>
+        <id>3</id>
+        <name>Mike Johnson</name>
+        <email>mike.johnson@example.com</email>
+        <address>
+            <street>789 Oak St</street>
+            <city>Springfield</city>
+            <state>IL</state>
+            <zip>62703</zip>
+        </address>
+        <oders>
+            <order>
+                <id>1</id>
+                <product>Apple</product>
+                <quantity>10</quantity>
+            </order>
+            <order>
+                <id>2</id>
+                <product>Orange</product>
+                <quantity>20</quantity>
+            </order>
+        </oders>
+    </record>
+
