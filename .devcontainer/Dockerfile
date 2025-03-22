@@ -1,15 +1,10 @@
-FROM python:3.9-slim
+FROM python:3.10-slim-bullseye
 
 # Install Java (required for Spark) and update package lists in the same RUN
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends openjdk-17-jdk-headless wget curl procps maven && \
+    apt-get install -y --no-install-recommends openjdk-17-jdk wget curl procps maven && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
-# Find the actual Java home and set JAVA_HOME dynamically
-RUN export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::") && \
-    echo "JAVA_HOME is set to: $JAVA_HOME" && \
-    java -version
 
 # Install Spark (download and extract)
 ARG SPARK_VERSION=3.5.5
@@ -29,7 +24,9 @@ ENV SPARK_HOME=/opt/spark
 
 # Add Spark bin directory to PATH
 ENV PATH=$SPARK_HOME/bin:$SPARK_HOME/sbin:$PATH
-ENV PYTHONPATH=$SPARK_HOME/python/lib
+ENV PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.9.7-src.zip:$PYTHONPATH
+
+RUN pip install ipykernel
 
 # Set working directory
 WORKDIR /workspaces

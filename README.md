@@ -4,6 +4,7 @@ This project is focused on leveraging Apache Spark.
 Initially it was created to test the xml processing (reading) capabilities.
 Target was to have a devcontainer with apache spark installed where spark scala code can be compiled with maven and executed with spark-submit.
 It should read xml files with complex data structure and write the result in json format.
+Jupyter notebook support is also included. 
 
 ## Prerequisites
 
@@ -20,7 +21,8 @@ The Dockerfile is based on the `python:3.9-slim` image and includes the followin
 1. **Install Java/MAVEN/Tools**: Java is required for running Apache Spark. The Dockerfile installs OpenJDK 17. For the scala builds maven is installed. Also additional tools required like curl/wget for downloads, procps fir spark
 2. **Install Spark**: The specified version of Apache Spark is downloaded and extracted to `/opt/spark`.
 3. **Install Scala**: Scala is installed to support Spark applications written in Scala.
-4. **Set Working Directory**: The working directory is set to `/workspaces`.
+4. **Install Jupyter**: Jupyter Notebook is installed to allow for interactive data exploration and analysis.
+5. **Set Working Directory**: The working directory is set to `/workspaces`.
 
 
 ## The "dev" folder
@@ -42,6 +44,14 @@ This example is useful for understanding how to handle semi-structured data with
 ### Other files
 
 There is also python pyspark code avialable in the python folder as a minimal example how to use it. 
+
+### Jupyter Notebooks
+
+The `notebooks` folder contains Jupyter notebooks for interactive data analysis and exploration using PySpark.
+
+*   **Setup**: The devcontainer is configured to support Jupyter. 
+*   **Usage**: These notebooks provide a way to interactively work with Spark, test code snippets, and visualize data.
+* **Example**: There is a `pyspark_example.ipynb` notebook in the `notebooks` folder. It contains a basic example of how to use pyspark in a notebook.
 
 ## Usage
 
@@ -80,4 +90,9 @@ Finally you should see somewhere at the end:
     ```
 
 This will execute the `com.example.XmlExample` class, processing the XML data by reading the files in the dev/data folder and writing the results to dev/data/output folder
+
+### Using Jupyter Notebooks
+
+1. **Open the Notebook**: Open the `pyspark_example.ipynb` or create a new notebook to start working with PySpark interactively. You do not need to start a jupyter server.
+You directly open and run the notebook in vscode.
 
