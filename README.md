@@ -53,6 +53,14 @@ The `notebooks` folder contains Jupyter notebooks for interactive data analysis 
 *   **Usage**: These notebooks provide a way to interactively work with Spark, test code snippets, and visualize data.
 * **Example**: There is a `pyspark_example.ipynb` notebook in the `notebooks` folder. It contains a basic example of how to use pyspark in a notebook.
 
+## License
+
+This project is released under the **CC0 1.0 Universal** license, which places it in the public domain. See the [LICENSE](LICENSE) file for details.
+
+### Third Party Dependencies
+
+This project uses several open-source libraries and tools. For a complete list of third-party dependencies and their licenses, see [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
+
 ## Usage
 
 ### Starting the Development Container

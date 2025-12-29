@@ -7,7 +7,6 @@ object XmlExample {
   def main(args: Array[String]): Unit = {
     val spark = SparkSession.builder
       .appName("XmlExample")
-      .config("spark.jars.packages", "com.databricks:spark-xml_2.12:0.15.0")
       .master("local[*]")
       .getOrCreate()
 

@@ -15,9 +15,10 @@ RUN wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SP
     rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz
     
 # Install Scala
-RUN wget https://downloads.lightbend.com/scala/2.13.8/scala-2.13.8.deb && \
-    dpkg -i scala-2.13.8.deb && \
-    rm scala-2.13.8.deb
+ARG SCALA_VERSION=2.12.18
+RUN wget https://downloads.lightbend.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.deb && \
+    dpkg -i scala-${SCALA_VERSION}.deb && \
+    rm scala-${SCALA_VERSION}.deb
 
 # Set SPARK_HOME environment variable
 ENV SPARK_HOME=/opt/spark
